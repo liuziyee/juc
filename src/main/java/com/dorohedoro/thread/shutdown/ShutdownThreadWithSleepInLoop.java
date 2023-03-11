@@ -19,7 +19,7 @@ public class ShutdownThreadWithSleepInLoop {
                     Thread.sleep(10);
                 }
             } catch (InterruptedException e) {
-                log.error(e.getMessage(), e);
+                log.info(e.getMessage());
             }
         };
         Thread thread = new Thread(runnable);
