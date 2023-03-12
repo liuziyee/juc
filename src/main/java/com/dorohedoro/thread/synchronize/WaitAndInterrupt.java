@@ -8,7 +8,7 @@ public class WaitAndInterrupt {
 
     public synchronized void waiting() {
         try {
-            this.wait();
+            wait();
         } catch (InterruptedException e) {}
         for (; ; ) {}
     }
