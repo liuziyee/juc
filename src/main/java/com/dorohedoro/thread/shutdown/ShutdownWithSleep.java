@@ -4,7 +4,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ShutdownThreadWithSleep {
+public class ShutdownWithSleep {
 
     @SneakyThrows
     public static void main(String[] args) {

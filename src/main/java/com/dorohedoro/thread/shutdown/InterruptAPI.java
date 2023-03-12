@@ -7,9 +7,7 @@ public class InterruptAPI {
 
     public static void main(String[] args) {
         Thread thread = new Thread(() -> {
-            for (; ; ) {
-                
-            }
+            for (; ; ) {}
         });
 
         thread.start();

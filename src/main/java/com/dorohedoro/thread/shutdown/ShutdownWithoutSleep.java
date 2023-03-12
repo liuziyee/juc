@@ -4,7 +4,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ShutdownThreadWithoutSleep implements Runnable {
+public class ShutdownWithoutSleep implements Runnable {
 
     @Override
     public void run() {
@@ -19,7 +19,7 @@ public class ShutdownThreadWithoutSleep implements Runnable {
 
     @SneakyThrows
     public static void main(String[] args) {
-        Thread thread = new Thread(new ShutdownThreadWithoutSleep());
+        Thread thread = new Thread(new ShutdownWithoutSleep());
         thread.start();
         Thread.sleep(1000);
         thread.interrupt();
