@@ -7,8 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 public class FieldVisibility {
 
     static int a = 1;
-    static int b = 2;
-    
+    volatile static int b = 2;
+    volatile static boolean done = false;
+
     @SneakyThrows
     public static void main(String[] args) {
         for (; ; ) {
@@ -18,8 +19,17 @@ public class FieldVisibility {
             Runnable writer = () -> {
                 a = 3;
                 b = a;
+                done = true;
             };
-            Runnable reader = () -> log.info("b={}, a={}", b, a);
+            Runnable reader = () -> {
+                while (!done) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                    }
+                }
+                log.info("b={}, a={}", b, a);
+            };
             new Thread(writer).start();
             new Thread(reader).start();
         }

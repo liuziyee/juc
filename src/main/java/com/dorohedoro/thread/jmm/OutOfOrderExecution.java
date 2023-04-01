@@ -9,6 +9,7 @@ import java.util.concurrent.CountDownLatch;
 public class OutOfOrderExecution {
 
     static int x, y, a, b;
+    //volatile static int x, y, a, b;
 
     @SneakyThrows
     public static void main(String[] args) {
