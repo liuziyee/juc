@@ -3,6 +3,10 @@ package com.dorohedoro.thread.deadlock;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadMXBean;
+import java.util.Arrays;
+
 @Slf4j
 public class TransferMoney implements Runnable {
 
@@ -35,7 +39,7 @@ public class TransferMoney implements Runnable {
     
     public static class Account {
         
-        private int balance;
+        int balance;
 
         public Account(int balance) {
             this.balance = balance;
@@ -50,6 +54,14 @@ public class TransferMoney implements Runnable {
         Thread bandai2Nintendo = new Thread(new TransferMoney(bandai, nintendo), "bandai2Nintendo");
         nintendo2Bandai.start();
         bandai2Nintendo.start();
+
+        Thread.sleep(1000);
+        ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
+        long[] tids = threadMXBean.findDeadlockedThreads();
+        if (tids != null && tids.length > 0) {
+            Arrays.stream(tids).forEach(tid -> log.info(threadMXBean.getThreadInfo(tid).getThreadName()));
+        }
+        
         nintendo2Bandai.join();
         bandai2Nintendo.join();
         log.info("任天堂余额: {}", nintendo.balance);
