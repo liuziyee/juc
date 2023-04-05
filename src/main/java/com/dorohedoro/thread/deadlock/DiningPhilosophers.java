@@ -46,7 +46,24 @@ public class DiningPhilosophers {
         Object[] chopsticks = new Object[philosophers.length];
         IntStream.range(0, 5).forEach(o -> chopsticks[o] = new Object());
         for (int i = 0; i < philosophers.length; i++) {
-            Philosopher philosopher = new Philosopher(chopsticks[i], chopsticks[(i + 1) % chopsticks.length]);
+            Object left = chopsticks[i];
+            Object right = chopsticks[(i + 1) % chopsticks.length];
+            Philosopher philosopher = new Philosopher(left, right);
+
+            //Philosopher philosopher;
+            // 最少一位哲学家取得筷子的次序相反
+            //if (i == philosophers.length - 1) {
+            //    philosopher = new Philosopher(right, left);
+            //} else {
+            //    philosopher = new Philosopher(left, right);
+            //}
+            // 奇偶数编号取得筷子的次序相反
+            //if (i % 2 == 0) {
+            //    philosopher = new Philosopher(left, right);
+            //} else {
+            //    philosopher = new Philosopher(right, left);
+            //}
+            
             new Thread(philosopher, "哲学家" + i + "号").start();
         }
     }
